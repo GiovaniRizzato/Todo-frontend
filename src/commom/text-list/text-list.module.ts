@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TextItemComponent } from './text-item/text-item.component';
+import { TextListComponent } from './text-list.component';
 
 @NgModule({
+  declarations: [
+    TextItemComponent,
+    TextListComponent
+  ],
   imports: [
-    BrowserModule
+    MatCheckboxModule
   ],
   exports: [
-
+    TextListComponent
   ],
   providers: [],
 })

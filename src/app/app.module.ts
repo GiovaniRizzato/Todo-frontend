@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
   imports: [
     ComomModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: []
 })
 export class AppModule { }
