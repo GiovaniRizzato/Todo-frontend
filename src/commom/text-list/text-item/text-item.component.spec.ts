@@ -2,8 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/angular'
 import { TextListModule } from '../text-list.module';
 import { TextItemComponent } from './text-item.component';
 
-describe('TextItemComponent', () => {
-  describe('When the page loads', () => {
+describe ('TextItemComponent', () => {
+  describe ('When the page loads', () => {
 
     const label = 'Test Label';
     const toggleChangeSpy = jest.fn ();
@@ -11,9 +11,6 @@ describe('TextItemComponent', () => {
 
     beforeEach(async () => {
       await render (TextItemComponent, {
-        declarations: [
-          
-        ],
         imports: [
           TextListModule
         ],
@@ -29,18 +26,35 @@ describe('TextItemComponent', () => {
       });
     });
 
-    it('Should have the label', async () => {
-      expect (screen.getByText(label)).toBeInTheDocument ();
+    it('Should the checkbox with propper label ateched to it', () => {
+      expect (screen.getByRole('checkbox', {name: label})).toBeInTheDocument ();
     });
 
-    it('Should have the label', async () => {
-      expect (screen.getByRole('checkbox')).toBeInTheDocument ();
-    });
-
-    it('Should notify when check status change', async () => {
-      fireEvent.click(screen.getByRole ('checkbox'))
-      
+    it('Should notify when check status change', () => {
+      fireEvent.click(screen.getByRole ('checkbox'));
       expect (toggleChangeSpy).toBeCalled ();
+    });
+
+    it('Should be able to edit the todo label', () => {
+      const newLabel = 'newLabel';
+
+      fireEvent.click (screen.getByRole ('button', { description: 'Edit' }));
+      const inputField = screen.getByPlaceholderText ('New "todo" description');
+      fireEvent.change (inputField, {target: {value: newLabel}})
+      fireEvent.click (screen.getByRole ('button', { description: 'Confirm change' }));
+      
+      expect (screen.getByText (newLabel)).toBeInTheDocument ();
+      expect (labelChangedSpy).toBeCalledWith (newLabel);
+    });
+
+    it('Should be able to cancel editing and reset to previews state', () => {
+      fireEvent.click (screen.getByRole ('button', { description: 'Edit' }));
+      const inputField = screen.getByPlaceholderText ('New "todo" description');
+      fireEvent.change (inputField, {target: {value: 'newLabel'}})
+      fireEvent.click (screen.getByRole ('button', { description: 'Cancel editing' }));
+      
+      expect (screen.getByRole ('checkbox', {name: label})).toBeInTheDocument ();
+      expect (labelChangedSpy).not.toBeCalled ();
     });
   });
 });

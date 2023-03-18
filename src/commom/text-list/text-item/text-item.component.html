@@ -1,6 +1,44 @@
-<mat-checkbox
-    data-testid="mat-checkbox"
-    (change)="toggleChange.emit($event)"
->
-    {{ label }}
-</mat-checkbox>
+<ng-container>
+    <ng-container
+        *ngIf="!isLabelBeenEdited"
+    >
+        <mat-checkbox
+            (change)="toggleChangeEvent($event)"
+        >
+            {{ label }}
+        </mat-checkbox>
+        <button
+            mat-icon-button
+            aria-label="Edit"
+            (click)="enableEditing()"
+        >
+            <mat-icon>edit</mat-icon>
+        </button>
+    </ng-container>
+    <ng-container
+        *ngIf="isLabelBeenEdited"
+    >
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input
+                [value]="form.newLabel"
+                matInput
+                placeholder='New "todo" description'
+            >
+        </mat-form-field>
+        <button
+            mat-icon-button
+            aria-label="Cancel editing"
+            (click)="disableEditing()"
+        >
+            <mat-icon>cancel</mat-icon>
+        </button>
+        <button
+            mat-icon-button
+            aria-label="Confirm change"
+            (click)="confirmEditing()"
+        >
+            <mat-icon>check</mat-icon>
+        </button>
+    </ng-container>
+</ng-container>
