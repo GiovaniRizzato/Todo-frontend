@@ -3,6 +3,8 @@ import { ComomModule } from '../commom/comom.module';
 import { AppComponent } from './app.component';
 import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button'
+import { MatFormFieldModule } from '@angular/material/form-field'
 
 @NgModule({
   declarations: [
@@ -11,7 +13,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   imports: [
     ComomModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatButtonModule,
+    MatFormFieldModule
   ],
   bootstrap: [ AppComponent ]
 })

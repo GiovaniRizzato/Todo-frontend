@@ -24,8 +24,8 @@ export class TextItemComponent {
   };
 
   disableEditing () {
-    this.form.newLabel = '';
     this.isLabelBeenEdited = false;
+    this.form.newLabel = '';
   };
 
   confirmEditing() {
