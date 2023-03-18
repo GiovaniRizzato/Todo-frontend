@@ -35,6 +35,7 @@ describe ('TextItemComponent', () => {
       expect (toggleChangeSpy).toBeCalled ();
     });
 
+    //TODO - juntar ambos testes abaixo para formar um "when editing the text-item"
     it('Should be able to edit the todo label', () => {
       const newLabel = 'newLabel';
 
