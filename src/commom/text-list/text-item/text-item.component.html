@@ -3,6 +3,7 @@
         *ngIf="!isLabelBeenEdited"
     >
         <mat-checkbox
+            [checked]="isChecked"
             (change)="toggleChangeEvent($event)"
         >
             {{ label }}

@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+export interface checkboxData {
+  id: string;
+  label: string;
+  isChecked?: boolean;
+}
 
 @Component({
   selector: 'text-list',
@@ -6,5 +12,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./text-list.component.css']
 })
 export class TextListComponent {
-  title = 'Todo-frontend';
+  @Input() textList: checkboxData[] = [];
 }
