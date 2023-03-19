@@ -5,22 +5,25 @@ import { TextItemComponent } from './text-item.component';
 describe ('TextItemComponent', () => {
   describe ('When the page loads', () => {
     const label = 'Test Label';
-    const toggleChangeSpy = jest.fn ();
-    const labelChangedSpy = jest.fn ();
+    const toggleChangeEmiter = {
+      emit: jest.fn ()
+    };
+    const labelChangedEmiter = {
+      emit: jest.fn ()
+    };
 
     beforeEach(async () => {
+      toggleChangeEmiter.emit = jest.fn ();
+      labelChangedEmiter.emit = jest.fn ();
+
       await render (TextItemComponent, {
         imports: [
           TextListModule
         ],
         componentProperties: {
           label,
-          toggleChange: {
-            emit: toggleChangeSpy
-          } as any,
-          labelChanged: {
-            emit: labelChangedSpy
-          } as any
+          toggleChange: toggleChangeEmiter as any,
+          labelChanged: labelChangedEmiter as any
         }
       });
     });
@@ -31,7 +34,7 @@ describe ('TextItemComponent', () => {
 
     it('Should notify when check status change', () => {
       fireEvent.click(screen.getByRole ('checkbox'));
-      expect (toggleChangeSpy).toBeCalled ();
+      expect (toggleChangeEmiter.emit).toBeCalled ();
     });
 
     it('Should have the edit button avalible', () => {
@@ -51,7 +54,7 @@ describe ('TextItemComponent', () => {
         fireEvent.click (screen.getByRole ('button', { name: 'Confirm change' }));
         
         expect (screen.getByRole ('checkbox', {name: newLabel})).toBeInTheDocument ();
-        expect (labelChangedSpy).toBeCalledWith (newLabel);
+        expect (labelChangedEmiter.emit).toBeCalledWith (newLabel);
       });
 
       it('Should be able to cancel editing and reset to previews state', () => {
@@ -60,7 +63,7 @@ describe ('TextItemComponent', () => {
         fireEvent.click (screen.getByRole ('button', { name: 'Cancel editing' }));
         
         expect (screen.getByRole ('checkbox', {name: label})).toBeInTheDocument ();
-        expect (labelChangedSpy).not.toBeCalled ();
+        expect (labelChangedEmiter.emit).not.toBeCalled ();
       });
     });
   });
