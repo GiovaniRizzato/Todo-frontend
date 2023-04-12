@@ -1,7 +1,20 @@
-<text-list
-    [textList]="todoList"
+<div
+    class="outter-wrapper"
 >
-</text-list>
+    <h1
+        class="title"
+    >
+        {{ title }}
+    </h1>
+    <div
+        class="wapper-card"
+    >
+        <text-list
+            [textList]="todoList"
+        >
+        </text-list>
+    </div>
+</div>
 <!--div class="container">
   <div class="row">
       <div class="col-md-12">
