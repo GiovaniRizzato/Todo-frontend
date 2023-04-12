@@ -1,6 +1,17 @@
-<text-item
+<div
+    class="card"
     *ngFor="let textItem of textList"
-    [label]="textItem.label"
-    [isChecked]="textItem.isChecked"
 >
-</text-item>
+    <text-item
+        [label]="textItem.label"
+        [isChecked]="textItem.isChecked"
+    >
+    </text-item>
+    <button
+        mat-icon-button
+        [attr.aria-label]="textItem.label + ' removal'"
+        (click)="removeItem(textItem)"
+    >
+        <mat-icon>remove</mat-icon>
+    </button>
+</div>

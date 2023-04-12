@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/angular'
+import { fireEvent, render, screen, within } from '@testing-library/angular'
 import { checkboxData, TextListComponent } from './text-list.component';
 import { TextListModule } from './text-list.module';
 
@@ -24,7 +24,7 @@ describe('TextListComponent', () => {
     beforeEach(async () => {
       await render (TextListComponent, {
         imports: [
-          TextListModule
+          TextListModule,
         ],
         componentProperties: {
           textList
@@ -34,15 +34,26 @@ describe('TextListComponent', () => {
 
     it('should display all checkboxes properly labeled and its status correct', () => {
       textList.forEach (textItemData => {
-        console.log({
-          name: textItemData.label,
-          checked: textItemData.isChecked ? textItemData.isChecked : false
-        });
         expect (screen.getByRole ('checkbox', {
           name: textItemData.label,
           checked: textItemData.isChecked ? textItemData.isChecked : false
         })).toBeInTheDocument ();
       });
     });
+
+    it('should have remove checkbox button', () => {
+      textList.forEach (textItemData => {
+        const removalButtonlabel = textItemData.label + ' removal'
+        expect (screen.getByRole ('button', { name: removalButtonlabel })).toBeInTheDocument ();
+      });
+    });
+    
+    it('should be able to remove checkbox by clicking on the remove button', () => {
+      const deletableCheckbox = screen.getByRole ('checkbox', {
+        name: 'Deletable'
+      });
+      fireEvent.click (screen.getByRole ('button', { name: 'Deletable removal' }));
+      expect (deletableCheckbox).not.toBeInTheDocument ();
+    }); 
   });
 });

@@ -13,4 +13,8 @@ export interface checkboxData {
 })
 export class TextListComponent {
   @Input() textList: checkboxData[] = [];
+
+  removeItem (item: checkboxData){
+    this.textList.splice(this.textList.indexOf(item), 1);
+  }
 }
