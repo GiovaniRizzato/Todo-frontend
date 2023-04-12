@@ -24,7 +24,6 @@ import { TextListComponent } from './text-list.component';
     MatInputModule
   ],
   exports: [
-    TextItemComponent,
     TextListComponent
   ]
 })
