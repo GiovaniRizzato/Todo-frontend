@@ -3,6 +3,7 @@
         *ngIf="!isLabelBeenEdited"
     >
         <mat-checkbox
+            color="primary"
             [checked]="isChecked"
             (change)="toggleChangeEvent($event)"
         >
@@ -10,6 +11,7 @@
         </mat-checkbox>
         <button
             mat-icon-button
+            color="primary"
             aria-label="Edit"
             (click)="enableEditing()"
         >
@@ -30,6 +32,7 @@
         </mat-form-field>
         <button
             mat-icon-button
+            color="warn"
             aria-label="Cancel editing"
             (click)="disableEditing ()"
         >
@@ -37,6 +40,7 @@
         </button>
         <button
             mat-icon-button
+            color="primary"
             aria-label="Confirm change"
             (click)="confirmEditing ()"
         >
