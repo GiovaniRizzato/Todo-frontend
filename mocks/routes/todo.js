@@ -58,7 +58,7 @@ module.exports = [
     {
         id: "put-todo",
         url: "/api/todo/:id",
-        method: "POST",
+        method: "PUT",
         variants: [
             {
                 id: "success",
