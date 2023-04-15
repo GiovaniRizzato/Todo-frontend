@@ -8,13 +8,66 @@ module.exports = [
         variants: [
             {
                 id: "success",
-                type: "json", // variant of type json
+                type: "json",
                 options: {
-                    status: 200, // status to send
-                    headers: { // response headers to send
+                    status: 200,
+                    headers: {
                         "x-custom-header": "foo-header-value",
                     },
                     body: DATA.list
+                },
+            }
+        ]
+    },
+    {
+        id: "get-todo-id",
+        url: "/api/todo/:id",
+        method: "GET",
+        variants: [
+            {
+                id: "success",
+                type: "json",
+                options: {
+                    status: 200,
+                    headers: {
+                        "x-custom-header": "foo-header-value",
+                    },
+                    body: DATA.details
+                },
+            }
+        ]
+    },
+    {
+        id: "post-new-todo",
+        url: "/api/todo",
+        method: "POST",
+        variants: [
+            {
+                id: "success",
+                type: "json",
+                options: {
+                    status: 200,
+                    headers: {
+                        "x-custom-header": "foo-header-value",
+                    },
+                    body: DATA.details
+                },
+            }
+        ]
+    },
+    {
+        id: "put-todo",
+        url: "/api/todo/:id",
+        method: "POST",
+        variants: [
+            {
+                id: "success",
+                type: "status", 
+                options: {
+                    status: 201,
+                    headers: {
+                        "x-custom-header": "foo-header-value",
+                    }
                 },
             }
         ]
