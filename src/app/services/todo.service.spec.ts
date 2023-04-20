@@ -1,10 +1,9 @@
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed, getTestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { TodoService } from "./todo.service";
 
 describe('TodoService', () => {
-  let injector: TestBed;
   let service: TodoService;
   let httpController: HttpTestingController;
   
@@ -13,7 +12,7 @@ describe('TodoService', () => {
       imports: [HttpClientTestingModule],
       providers: [TodoService]
     });
-    injector = getTestBed();
+
     service = TestBed.inject(TodoService);
     httpController = TestBed.inject(HttpTestingController);
   });
