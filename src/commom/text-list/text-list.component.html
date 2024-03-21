@@ -6,6 +6,8 @@
             <text-item
                 [label]="textItem.label"
                 [isChecked]="textItem.isChecked"
+                (labelChanged)="onLabelChanged($event, textItem.id)"
+                (toggleChange)="onToggleChange($event, textItem.id)"
             >
             </text-item>
             <button

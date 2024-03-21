@@ -1,25 +1,27 @@
-import { render, screen } from '@testing-library/angular'
+import { render, RenderResult, screen } from '@testing-library/angular'
 import { AppComponent } from './app.component';
-import { TodoService } from './services/todo.service';
 import { Mock } from 'ts-mockery'
 import { of } from 'rxjs'
+import { TodoFacade } from './+todo/todo.facade';
 
 describe('AppComponent', () => {
+  let component: RenderResult<AppComponent, AppComponent>;
+
   beforeEach(async () => {
-    const mockTodoService: TodoService = Mock.from<TodoService>({
-      getAllTodos: () => of([])
+    const mockTodoFacade: TodoFacade = Mock.from<TodoFacade>({
+      todoList$: of([])
     });
 
-    await render (AppComponent, {
+    component = await render (AppComponent, {
       providers: [
-        { provide: TodoService, useFactory: () => mockTodoService }
+        { provide: TodoFacade, useFactory: () => mockTodoFacade }
       ],
     });
   });
 
   describe('When the page loads', () => {
     it('Should render the message', () => {
-      expect (screen.getByText('Todo-frontend')).toBeInTheDocument ();
+      expect (component.getByText('Todo-frontend')).toBeVisible ();
     });
   });
 });

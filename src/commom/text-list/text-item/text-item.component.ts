@@ -6,11 +6,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./text-item.component.css']
 })
 export class TextItemComponent {
-  @Input() label!: String;
+  @Input() label!: string;
   @Input() isChecked? = false;
 
-  @Output() toggleChange = new EventEmitter<Boolean>();
-  @Output() labelChanged = new EventEmitter<String>();
+  @Output() toggleChange = new EventEmitter<{checked: string, source: TextItemComponent}>();
+  @Output() labelChanged = new EventEmitter<{newLabel: string, source: TextItemComponent}>();
 
   isLabelBeenEdited = false;
   form = {
@@ -30,11 +30,11 @@ export class TextItemComponent {
 
   confirmEditing() {
     this.label = this.form.newLabel;
-    this.labelChanged.emit (this.label);
+    this.labelChanged.emit ({newLabel: this.label, source: this});
     this.disableEditing ();
   };
 
   toggleChangeEvent (event: any){
-    this.toggleChange.emit (event);
+    this.toggleChange.emit ({...event, source: this});
   }
 }

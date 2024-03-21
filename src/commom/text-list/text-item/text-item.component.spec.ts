@@ -1,75 +1,82 @@
-import { fireEvent, render, screen } from '@testing-library/angular'
+import { render, RenderResult } from '@testing-library/angular'
+import userEvent from '@testing-library/user-event'
 import { TextListModule } from '../text-list.module';
 import { TextItemComponent } from './text-item.component';
 
 describe ('TextItemComponent', () => {
-  describe ('When the page loads', () => {
-    const label = 'Test Label';
-    const isChecked = true;
-    const toggleChangeEmiter = {
-      emit: jest.fn ()
-    };
-    const labelChangedEmiter = {
-      emit: jest.fn ()
-    };
+  let component: RenderResult<TextItemComponent, TextItemComponent>;
+  const toggleChangeEmiter = {
+    emit: jest.fn ()
+  };
+  const labelChangedEmiter = {
+    emit: jest.fn ()
+  };
 
-    beforeEach (async () => {
-      toggleChangeEmiter.emit = jest.fn ();
-      labelChangedEmiter.emit = jest.fn ();
+  beforeEach (async () => {
+    toggleChangeEmiter.emit = jest.fn ();
+    labelChangedEmiter.emit = jest.fn ();
 
-      await render (TextItemComponent, {
-        imports: [
-          TextListModule
-        ],
-        componentProperties: {
-          label,
-          isChecked,
-          toggleChange: toggleChangeEmiter as any,
-          labelChanged: labelChangedEmiter as any
-        }
-      });
+    component = await render (TextItemComponent, {
+      imports: [
+        TextListModule
+      ],
+      componentProperties: {
+        label: 'Test Label',
+        isChecked: true,
+        toggleChange: toggleChangeEmiter as any,
+        labelChanged: labelChangedEmiter as any
+      }
+    });
+  });
+
+  it ('Should the checkbox with propper label ateched to it', () => {
+    expect (component.getByRole ('checkbox', {
+      name: 'Test Label',
+      checked: true
+    })).toBeInTheDocument ();
+  });
+
+  it ('Should notify when check status change', async () => {
+    await userEvent.click (component.getByRole ('checkbox'));
+    expect (toggleChangeEmiter.emit).toBeCalledWith (expect.objectContaining ({
+      checked: false
+    }));
+  });
+
+  it ('Should have the edit button avalible', () => {
+    expect (component.getByRole ('button', { name: `Edit label for Test Label` })).toBeVisible ();
+  });
+
+  describe ('When the user clicks on the edit button', () => {
+    const newLabel = 'newLabel';
+
+    beforeEach (async () => {        
+      await userEvent.click (component.getByRole ('button', { name: `Edit label for Test Label` }));
+      component.detectChanges ();
+
+      expect (component.getByRole ('textbox', { name: 'New description' })).toBeInTheDocument ();
+      expect (component.getByRole ('button', { name: 'Confirm change' })).toBeInTheDocument ();
+      expect (component.getByRole ('button', { name: 'Cancel editing' })).toBeInTheDocument ();
     });
 
-    it ('Should the checkbox with propper label ateched to it', () => {
-      expect (screen.getByRole ('checkbox', {
-        name: label,
-        checked: isChecked
-      })).toBeInTheDocument ();
+    it ('Should be able to edit the todo label', async () => {
+      await userEvent.type (component.getByRole ('textbox', { name: 'New description' }), newLabel)
+      await userEvent.click (component.getByRole ('button', { name: 'Confirm change' }));
+      component.detectChanges ();
+
+      expect (component.getByRole ('checkbox', {name: newLabel})).toBeInTheDocument ();
+      expect (labelChangedEmiter.emit).toBeCalledWith (expect.objectContaining ({
+        newLabel: 'newLabel'
+      }));
     });
 
-    it ('Should notify when check status change', () => {
-      fireEvent.click (screen.getByRole ('checkbox'));
-      expect (toggleChangeEmiter.emit).toBeCalled ();
-    });
+    it ('Should be able to cancel editing and reset to previews state', async () => {
+      await userEvent.type (component.getByRole ('textbox', { name: 'New description' }), newLabel)
+      await userEvent.click (component.getByRole ('button', { name: 'Cancel editing' }));
+      component.detectChanges();
 
-    it ('Should have the edit button avalible', () => {
-      expect (screen.getByRole ('button', { name: 'Edit' })).toBeInTheDocument ();
-    });
-
-    describe ('When the user clicks on the edit button', () => {
-      const newLabel = 'newLabel';
-
-      beforeEach(() => {
-        fireEvent.click (screen.getByRole ('button', { name: 'Edit' }));
-      });
-
-      it ('Should be able to edit the todo label', () => {
-        const inputField = screen.getByPlaceholderText ('New "todo" description');
-        fireEvent.input (inputField, {target: {value: newLabel}})
-        fireEvent.click (screen.getByRole ('button', { name: 'Confirm change' }));
-        
-        expect (screen.getByRole ('checkbox', {name: newLabel})).toBeInTheDocument ();
-        expect (labelChangedEmiter.emit).toBeCalledWith (newLabel);
-      });
-
-      it ('Should be able to cancel editing and reset to previews state', () => {
-        const inputField = screen.getByPlaceholderText ('New "todo" description');
-        fireEvent.input (inputField, {target: {value: newLabel}})
-        fireEvent.click (screen.getByRole ('button', { name: 'Cancel editing' }));
-        
-        expect (screen.getByRole ('checkbox', {name: label})).toBeInTheDocument ();
-        expect (labelChangedEmiter.emit).not.toBeCalled ();
-      });
+      expect (component.getByRole ('checkbox', {name: 'Test Label'})).toBeInTheDocument ();
+      expect (labelChangedEmiter.emit).not.toBeCalled ();
     });
   });
 });

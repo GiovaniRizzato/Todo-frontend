@@ -1,58 +1,67 @@
-import { fireEvent, render, screen, within } from '@testing-library/angular'
+import { render, RenderResult } from '@testing-library/angular'
+import userEvent from '@testing-library/user-event';
 import { CheckboxData, TextListComponent } from './text-list.component';
 import { TextListModule } from './text-list.module';
 
 describe('TextListComponent', () => {
-  describe('When the page loads', () => {
-    const textList = [
-      {
-        id: "1",
-        label: "Test label 1",
-      } as CheckboxData,
-      {
-        id: "2",
-        label: "Test label 2",
-        isChecked: true
-      } as CheckboxData,
-      {
-        id: "3",
-        label: "Deletable",
-        isChecked: false
-      } as CheckboxData
-    ]
+  let component: RenderResult<TextListComponent, TextListComponent>;
+  const textList = [
+    {
+      id: "1",
+      label: "Test label 1",
+    } as CheckboxData,
+    {
+      id: "2",
+      label: "Test label 2",
+      isChecked: true
+    } as CheckboxData,
+    {
+      id: "3",
+      label: "Deletable",
+      isChecked: false
+    } as CheckboxData
+  ]
 
-    beforeEach(async () => {
-      await render (TextListComponent, {
-        imports: [
-          TextListModule,
-        ],
-        componentProperties: {
-          textList
-        }
-      });
+  beforeEach(async () => {
+    component = await render (TextListComponent, {
+      autoDetectChanges: true,
+      imports: [
+        TextListModule,
+      ],
+      componentProperties: {
+        textList
+      }
     });
+  });
 
-    it('should display all checkboxes properly labeled and its status correct', () => {
-      textList.forEach (textItemData => {
-        expect (screen.getByRole ('checkbox', {
-          name: textItemData.label,
-          checked: textItemData.isChecked ? textItemData.isChecked : false
-        })).toBeInTheDocument ();
-      });
+  it('should display all checkboxes properly labeled and its status correct', () => {
+    textList.forEach (textItemData => {
+      expect (component.getByRole ('checkbox', {
+        name: textItemData.label,
+        checked: textItemData.isChecked ? textItemData.isChecked : false
+      })).toBeInTheDocument ();
     });
+  });
 
-    it('should have remove checkbox button', () => {
-      textList.forEach (textItemData => {
-        const removalButtonlabel = textItemData.label + ' removal'
-        expect (screen.getByRole ('button', { name: removalButtonlabel })).toBeInTheDocument ();
-      });
+  it('should have all remove checkbox buttons', () => {
+    textList.forEach (textItemData => {
+      const removalButtonlabel = textItemData.label + ' removal'
+      expect (component.getByRole ('button', { name: removalButtonlabel })).toBeVisible ();
     });
-    
-    it('should be able to remove checkbox by clicking on the remove button', () => {
-      const deletableCheckbox = screen.getByRole ('checkbox', {
+  });
+
+  describe('should be able to remove checkbox', () => {
+    beforeEach(() => {
+      component.getByRole ('button', { name: 'Test label 1 removal' })
+    })
+
+    it('should be able to remove checkbox by clicking on the remove button', async () => {
+      const deletableCheckbox = component.getByRole ('checkbox', {
         name: 'Deletable'
       });
-      fireEvent.click (screen.getByRole ('button', { name: 'Deletable removal' }));
+      await userEvent.click (component.getByRole ('button', { name: 'Deletable removal' }));
+      component.detectChanges ();
+
       expect (deletableCheckbox).not.toBeInTheDocument ();
     }); 
   });
