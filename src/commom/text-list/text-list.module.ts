@@ -21,9 +21,9 @@ import { TextListComponent } from './text-list.component';
     MatCheckboxModule,
     MatButtonModule,
     MatIconModule,
-    MatFormFieldModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    MatFormFieldModule,
   ],
   exports: [
     TextListComponent

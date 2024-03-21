@@ -3,14 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 
 export interface Todo {
-  id: String;
-  label: String;
-  isDone: Boolean
+  id?: String;
+  textLabel: String;
+  isChecked: Boolean
 };
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class TodoService {
   constructor (private readonly http: HttpClient) {}
 
@@ -20,10 +18,10 @@ export class TodoService {
   getTodoById (id: string): Observable<Todo> {
     return this.http.get<Todo> (`/api/todo/${id}`);
   }
-  createTodo (newTodo: {label: string, isDone: boolean}): Observable<void> {
+  createTodo (newTodo: Todo): Observable<void> {
     return this.http.post<void> (`/api/todo`, newTodo);
   }
-  editTodo (id: string, newFields: {label: string, isDone: boolean}): Observable<void> {
+  editTodo (id: string, newFields: Todo): Observable<void> {
     return this.http.put<void> (`/api/todo/${id}`, newFields);
   }
 }

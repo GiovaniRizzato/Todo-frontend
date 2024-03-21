@@ -11,9 +11,6 @@ module.exports = [
                 type: "json",
                 options: {
                     status: 200,
-                    headers: {
-                        "x-custom-header": "foo-header-value",
-                    },
                     body: DATA.list
                 },
             }
@@ -29,9 +26,6 @@ module.exports = [
                 type: "json",
                 options: {
                     status: 200,
-                    headers: {
-                        "x-custom-header": "foo-header-value",
-                    },
                     body: DATA.details
                 },
             }
@@ -46,10 +40,7 @@ module.exports = [
                 id: "success",
                 type: "json",
                 options: {
-                    status: 200,
-                    headers: {
-                        "x-custom-header": "foo-header-value",
-                    },
+                    status: 201,
                     body: DATA.details
                 },
             }
@@ -64,10 +55,7 @@ module.exports = [
                 id: "success",
                 type: "status", 
                 options: {
-                    status: 201,
-                    headers: {
-                        "x-custom-header": "foo-header-value",
-                    }
+                    status: 202,
                 },
             }
         ]

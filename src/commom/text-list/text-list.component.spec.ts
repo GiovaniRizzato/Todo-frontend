@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, within } from '@testing-library/angular'
-import { checkboxData, TextListComponent } from './text-list.component';
+import { CheckboxData, TextListComponent } from './text-list.component';
 import { TextListModule } from './text-list.module';
 
 describe('TextListComponent', () => {
@@ -8,17 +8,17 @@ describe('TextListComponent', () => {
       {
         id: "1",
         label: "Test label 1",
-      } as checkboxData,
+      } as CheckboxData,
       {
         id: "2",
         label: "Test label 2",
         isChecked: true
-      } as checkboxData,
+      } as CheckboxData,
       {
         id: "3",
         label: "Deletable",
         isChecked: false
-      } as checkboxData
+      } as CheckboxData
     ]
 
     beforeEach(async () => {

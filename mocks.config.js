@@ -4,7 +4,7 @@
 
 module.exports = {
   // Log level. Can be one of silly, debug, verbose, info, warn or error
-  //log: "info",
+  log: "info",
   config: {
     // Allow unknown arguments
     //allowUnknownArguments: false,
@@ -46,7 +46,7 @@ module.exports = {
   mock: {
     routes: {
       // Global delay to apply to routes
-      //delay: 0,
+      delay: 0,
     },
     collections: {
       selected: "main",

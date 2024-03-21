@@ -1,7 +1,7 @@
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { TodoService } from "./todo.service";
+import { Todo, TodoService } from "./todo.service";
 
 describe('TodoService', () => {
   let service: TodoService;
@@ -33,29 +33,29 @@ describe('TodoService', () => {
 
   it('Should be able to create new Todo', () => {
     service.createTodo ({
-      label: "new Todo",
-      isDone: true
-    }).subscribe ();
+      textLabel: "new todo item",
+      ischecked: true
+    } as Todo).subscribe ();
 
     const request = httpController.expectOne ('/api/todo');
     expect(request.request.method).toEqual ('POST');
     expect(request.request.body).toEqual ({
-      label: "new Todo",
-      isDone: true
-    });
+      textLabel: "new todo item",
+      ischecked: true
+    } as Todo);
   });
 
   it('Should be able to edit a Todo', () => {
     service.editTodo ('2', {
-      label: "new test label",
-      isDone: false
+      textLabel: "edited todo item",
+      ischecked: false
     }).subscribe ();
 
     const request = httpController.expectOne ('/api/todo/2');
     expect(request.request.method).toEqual ('PUT');
     expect(request.request.body).toEqual ({
-      label: "new test label",
-      isDone: false
+      textLabel: "edited todo item",
+      ischecked: false
     });
   });
 

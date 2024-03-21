@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-export interface checkboxData {
+export interface CheckboxData {
   id: string;
   label: string;
   isChecked?: boolean;
@@ -12,9 +12,9 @@ export interface checkboxData {
   styleUrls: ['./text-list.component.css']
 })
 export class TextListComponent {
-  @Input() textList: checkboxData[] = [];
+  @Input() textList: CheckboxData[] | null = [];
 
-  removeItem (item: checkboxData){
-    this.textList.splice(this.textList.indexOf(item), 1);
+  removeItem (item: CheckboxData){
+    this.textList?.splice(this.textList.indexOf(item), 1);
   }
 }

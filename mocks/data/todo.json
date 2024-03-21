@@ -2,23 +2,23 @@
     "list": [
         {
             "id": "1",
-            "label": "Test label 1",
-            "isDone": true
+            "textLabel": "Test label 1",
+            "isChecked": true
         },
         {
             "id": "2",
-            "label": "Test label 2",
-            "isDone": false
+            "textLabel": "Test label 2",
+            "isChecked": false
         },
         {
             "id": "3",
-            "label": "Test label 3",
-            "isDone": true
+            "textLabel": "Test label 3",
+            "isChecked": true
         }
     ],
     "details": {
         "id": "1",
-        "label": "Test label 1",
-        "isDone": true
+        "textLabel": "Test label 1",
+        "isChecked": true
     }
 }
