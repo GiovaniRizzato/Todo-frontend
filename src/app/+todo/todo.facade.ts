@@ -32,6 +32,10 @@ export class TodoFacade {
     this.store.dispatch(TodoActions.createTodo({label: newTodoLabel}));
   }
 
+  removeTodo (id: string) {
+    this.store.dispatch(TodoActions.removeTodo({id}));
+  }
+
   clearMessage () {
     this.store.dispatch(TodoActions.clearMessage());
   }

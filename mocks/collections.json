@@ -5,7 +5,18 @@
             "get-todo-list:success",
             "get-todo-id:success",
             "post-new-todo:success",
-            "put-todo:success"
+            "put-todo:success",
+            "remove-todo:success"
+        ]
+    },
+    {
+        "id": "error",
+        "routes": [
+            "get-todo-list:success",
+            "get-todo-id:success",
+            "post-new-todo:error",
+            "put-todo:error",
+            "remove-todo:error"
         ]
     }
 ]

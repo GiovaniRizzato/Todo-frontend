@@ -52,6 +52,6 @@ export class AppComponent implements OnInit {
   }
 
   onRemove(id: string) {
-    console.log(id)
+    this.todoFacade.removeTodo(id);
   }
 }

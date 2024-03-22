@@ -24,4 +24,7 @@ export class TodoService {
   editTodo (id: string, newFields: Todo): Observable<void> {
     return this.http.put<void> (`/api/todo/${id}`, newFields);
   }
+  removeTodo (id: string): Observable<void> {
+    return this.http.delete<void> (`/api/todo/${id}`);
+  }
 }

@@ -18,7 +18,7 @@ export class TodoEffects {
       )),
   ));
 
-  editTodos$ = createEffect(() => this.actions$.pipe(
+  editTodo$ = createEffect(() => this.actions$.pipe(
     ofType(TodoAction.editTodo),
     concatMap(modifiedTodo => this.todoService.editTodo(modifiedTodo.id, TodoEffects.todoFromModelToData(modifiedTodo))
       .pipe(
@@ -27,7 +27,7 @@ export class TodoEffects {
       )),
   ));
 
-  createTodos$ = createEffect(() => this.actions$.pipe(
+  createTodo$ = createEffect(() => this.actions$.pipe(
     ofType(TodoAction.createTodo),
     concatMap(newTodoLabel => this.todoService.createTodo({
       textLabel: newTodoLabel.label,
@@ -35,6 +35,15 @@ export class TodoEffects {
     }).pipe(
         map(() => TodoAction.createTodoSuccess()),
         catchError(error => of(TodoAction.createTodoFailure(error)))
+      )),
+  ));
+
+  removeTodo$ = createEffect(() => this.actions$.pipe(
+    ofType(TodoAction.removeTodo),
+    concatMap(removedTodoId => this.todoService.removeTodo(removedTodoId.id)
+    .pipe(
+        map(() => TodoAction.removeTodoSuccess()),
+        catchError(error => of(TodoAction.removeTodoFailure(error)))
       )),
   ));
 

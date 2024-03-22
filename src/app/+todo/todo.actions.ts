@@ -43,6 +43,20 @@ export const createTodoFailure = createAction(
   props<any>()
 );
 
+export const removeTodo = createAction(
+  '[Todo] Remove Todo',
+  props<{id: string}>()
+);
+
+export const removeTodoSuccess = createAction(
+  '[Todo] Remove Todo Success'
+);
+
+export const removeTodoFailure = createAction(
+  '[Todo] Remove Todo Failure',
+  props<any>()
+);
+
 export const clearMessage = createAction(
   '[Todo] Clear message'
 );

@@ -73,5 +73,26 @@ module.exports = [
                 },
             }
         ]
+    },
+    {
+        id: "remove-todo",
+        url: "/api/todo/:id",
+        method: "DELETE",
+        variants: [
+            {
+                id: "success",
+                type: "status", 
+                options: {
+                    status: 202,
+                },
+            },
+            {
+                id: "error",
+                type: "status", 
+                options: {
+                    status: 500,
+                },
+            }
+        ]
     }
 ];

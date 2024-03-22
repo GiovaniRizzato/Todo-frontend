@@ -71,6 +71,22 @@ export const reducer = createReducer (
       type: MessageType.ERROR
     }
   })),
+  on(TodoActions.removeTodo, (state, removedTodo: {id: string}) => ({
+    ...state,
+    todoList: state.todoList.filter(todoItem => todoItem.id !== removedTodo.id),
+    oldState: state,
+  })),
+  on(TodoActions.removeTodoSuccess, (state) => ({
+    ...state,
+    oldState: {} as TodoState //Clear the hitory once it's done
+  })),
+  on(TodoActions.removeTodoFailure, (state, error: any) => ({
+    ...state.oldState,
+    message: {
+      message: error.message,
+      type: MessageType.ERROR
+    }
+  })),
   on(TodoActions.clearMessage, (state) => ({
     ...state,
     message: {} as Message,
