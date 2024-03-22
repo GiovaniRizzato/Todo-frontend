@@ -20,27 +20,9 @@ export const editTodo = createAction(
   props<TodoItem>()
 );
 
-export const editTodoSuccess = createAction(
-  '[Todo] Edit Todo Success'
-);
-
-export const editTodoFailure = createAction(
-  '[Todo] Edit Todo Failure',
-  props<any>()
-);
-
 export const createTodo = createAction(
   '[Todo] Create Todo',
   props<{label: string}>()
-);
-
-export const createTodoSuccess = createAction(
-  '[Todo] Create Todo Success'
-);
-
-export const createTodoFailure = createAction(
-  '[Todo] Create Todo Failure',
-  props<any>()
 );
 
 export const removeTodo = createAction(
@@ -48,12 +30,12 @@ export const removeTodo = createAction(
   props<{id: string}>()
 );
 
-export const removeTodoSuccess = createAction(
-  '[Todo] Remove Todo Success'
+export const todoManipulationSuccess = createAction(
+  '[Todo] Todo Manipulation Success'
 );
 
-export const removeTodoFailure = createAction(
-  '[Todo] Remove Todo Failure',
+export const todoManipulationFailure = createAction(
+  '[Todo] Todo Manipulation Failure',
   props<any>()
 );
 

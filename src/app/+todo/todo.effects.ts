@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, catchError, concatMap, mergeMap, tap } from 'rxjs/operators';
+import { map, catchError, concatMap } from 'rxjs/operators';
 import { Todo, TodoService } from './todo.service';
 import * as TodoAction from './todo.actions';
 import { TodoItem } from './todo.models';
@@ -22,8 +22,8 @@ export class TodoEffects {
     ofType(TodoAction.editTodo),
     concatMap(modifiedTodo => this.todoService.editTodo(modifiedTodo.id, TodoEffects.todoFromModelToData(modifiedTodo))
       .pipe(
-        map(() => TodoAction.editTodoSuccess()),
-        catchError(error => of(TodoAction.editTodoFailure(error)))
+        map(() => TodoAction.todoManipulationSuccess()),
+        catchError(error => of(TodoAction.todoManipulationFailure(error)))
       )),
   ));
 
@@ -33,8 +33,8 @@ export class TodoEffects {
       textLabel: newTodoLabel.label,
       isChecked: false
     }).pipe(
-        map(() => TodoAction.createTodoSuccess()),
-        catchError(error => of(TodoAction.createTodoFailure(error)))
+        map(() => TodoAction.todoManipulationSuccess()),
+        catchError(error => of(TodoAction.todoManipulationFailure(error)))
       )),
   ));
 
@@ -42,8 +42,8 @@ export class TodoEffects {
     ofType(TodoAction.removeTodo),
     concatMap(removedTodoId => this.todoService.removeTodo(removedTodoId.id)
     .pipe(
-        map(() => TodoAction.removeTodoSuccess()),
-        catchError(error => of(TodoAction.removeTodoFailure(error)))
+        map(() => TodoAction.todoManipulationSuccess()),
+        catchError(error => of(TodoAction.todoManipulationFailure(error)))
       )),
   ));
 

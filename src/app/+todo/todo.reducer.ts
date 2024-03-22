@@ -40,17 +40,6 @@ export const reducer = createReducer (
       todoList: state.todoList.map(todoItem => todoItem.id === newState.id ? newState : todoItem),
       oldState: state,
   })),
-  on(TodoActions.editTodoSuccess, (state) => ({
-    ...state,
-    oldState: {} as TodoState //Clear the hitory once it's done
-  })),
-  on(TodoActions.editTodoFailure, (state, error: any) => ({
-    ...state.oldState,
-    message: {
-      message: error.message,
-      type: MessageType.ERROR
-    }
-  })),
   on(TodoActions.createTodo, (state, newTodo: {label: string}) => ({
     ...state,
     todoList: [...state.todoList, {
@@ -60,27 +49,16 @@ export const reducer = createReducer (
     }],
     oldState: state,
   })),
-  on(TodoActions.createTodoSuccess, (state) => ({
-    ...state,
-    oldState: {} as TodoState //Clear the hitory once it's done
-  })),
-  on(TodoActions.createTodoFailure, (state, error: any) => ({
-    ...state.oldState,
-    message: {
-      message: error.message,
-      type: MessageType.ERROR
-    }
-  })),
   on(TodoActions.removeTodo, (state, removedTodo: {id: string}) => ({
     ...state,
     todoList: state.todoList.filter(todoItem => todoItem.id !== removedTodo.id),
     oldState: state,
   })),
-  on(TodoActions.removeTodoSuccess, (state) => ({
+  on(TodoActions.todoManipulationSuccess, (state) => ({
     ...state,
     oldState: {} as TodoState //Clear the hitory once it's done
   })),
-  on(TodoActions.removeTodoFailure, (state, error: any) => ({
+  on(TodoActions.todoManipulationFailure, (state, error: any) => ({
     ...state.oldState,
     message: {
       message: error.message,
