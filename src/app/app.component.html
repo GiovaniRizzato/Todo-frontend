@@ -28,6 +28,25 @@
                     </mat-card-content>
                 </mat-card>
             </div>
+            <div>
+                <mat-form-field>
+                    <mat-label id="new-todo-label">New Todo</mat-label>
+                    <input
+                        matInput
+                        type="text"
+                        aria-labelledby="new-todo-label"
+                        [(ngModel)]="form.label"
+                    >
+                </mat-form-field>
+                <button
+                    mat-icon-button
+                    color="primary"
+                    aria-label="Confirm creation of todo"
+                    (click)="onCreation ()"
+                >
+                    <mat-icon>check</mat-icon>
+                </button>
+            </div>
         </ng-container>
     </div>
 </div>

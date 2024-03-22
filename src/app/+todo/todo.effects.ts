@@ -27,6 +27,17 @@ export class TodoEffects {
       )),
   ));
 
+  createTodos$ = createEffect(() => this.actions$.pipe(
+    ofType(TodoAction.createTodo),
+    concatMap(newTodoLabel => this.todoService.createTodo({
+      textLabel: newTodoLabel.label,
+      isChecked: false
+    }).pipe(
+        map(() => TodoAction.createTodoSuccess()),
+        catchError(error => of(TodoAction.createTodoFailure(error)))
+      )),
+  ));
+
   constructor(
     private readonly actions$: Actions,
     private readonly todoService: TodoService

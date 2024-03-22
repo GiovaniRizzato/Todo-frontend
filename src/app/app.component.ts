@@ -19,6 +19,9 @@ export class AppComponent implements OnInit {
   title = 'Todo Frontend';
   $todoList: Observable<TodoItem[]> = this.todoFacade.todoList$;
   $isLoading: Observable<boolean> = this.todoFacade.isLoading$;
+  form = {
+    label: ''
+  };
   
   ngOnInit (): void {
     this.todoFacade.message$.subscribe(message => {
@@ -40,6 +43,13 @@ export class AppComponent implements OnInit {
       label: typeof $event.newLabel !== 'undefined' ? $event.newLabel : todoItem.label
     } as TodoItem);
   };
+
+  onCreation() {
+    this.todoFacade.createTodo(this.form.label);
+    this.form = {
+      label: ''
+    };
+  }
 
   onRemove(id: string) {
     console.log(id)

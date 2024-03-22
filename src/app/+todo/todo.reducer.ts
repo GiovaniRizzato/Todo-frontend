@@ -30,7 +30,10 @@ export const reducer = createReducer (
   })),
   on(TodoActions.loadTodosFailure, (state, error: any) => ({
     ...state,
-    loading: false,
+    message: {
+      message: error.message,
+      type: MessageType.ERROR
+    }
   })),
   on(TodoActions.editTodo, (state, newState: TodoItem) => ({
       ...state,
@@ -42,6 +45,26 @@ export const reducer = createReducer (
     oldState: {} as TodoState //Clear the hitory once it's done
   })),
   on(TodoActions.editTodoFailure, (state, error: any) => ({
+    ...state.oldState,
+    message: {
+      message: error.message,
+      type: MessageType.ERROR
+    }
+  })),
+  on(TodoActions.createTodo, (state, newTodo: {label: string}) => ({
+    ...state,
+    todoList: [...state.todoList, {
+      id: (state.todoList.length + 1).toFixed(),
+      label: newTodo.label,
+      isDone: false
+    }],
+    oldState: state,
+  })),
+  on(TodoActions.createTodoSuccess, (state) => ({
+    ...state,
+    oldState: {} as TodoState //Clear the hitory once it's done
+  })),
+  on(TodoActions.createTodoFailure, (state, error: any) => ({
     ...state.oldState,
     message: {
       message: error.message,

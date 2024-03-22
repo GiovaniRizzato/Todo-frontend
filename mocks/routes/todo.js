@@ -43,6 +43,13 @@ module.exports = [
                     status: 201,
                     body: DATA.details
                 },
+            },
+            {
+                id: "error",
+                type: "status", 
+                options: {
+                    status: 500,
+                },
             }
         ]
     },

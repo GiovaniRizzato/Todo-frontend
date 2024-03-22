@@ -1,4 +1,5 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ComomModule } from '../commom/comom.module';
 import { AppComponent } from './app.component';
 import { MatIconModule } from '@angular/material/icon'
@@ -8,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodoStoreModule } from './+todo/todo-store.module';
 
@@ -17,6 +19,7 @@ import { TodoStoreModule } from './+todo/todo-store.module';
   ],
   imports: [
     ComomModule,
+    FormsModule,
     MatCardModule,
     MatIconModule,
     MatCheckboxModule,
@@ -24,6 +27,7 @@ import { TodoStoreModule } from './+todo/todo-store.module';
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatInputModule,
     TodoStoreModule,
     BrowserAnimationsModule
   ],
