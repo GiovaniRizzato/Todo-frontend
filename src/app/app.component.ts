@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { TodoFacade } from './+todo/todo.facade';
 import { TodoItem } from './+todo/todo.models';
@@ -10,12 +11,26 @@ import { TodoItem } from './+todo/todo.models';
 })
 export class AppComponent implements OnInit {
 
-  constructor (private readonly todoFacade: TodoFacade) {}
+  constructor (
+    private readonly todoFacade: TodoFacade,
+    private readonly popUpBar: MatSnackBar
+  ) {}
   
   title = 'Todo-frontend';
   $todoList: Observable<TodoItem[]> = this.todoFacade.todoList$;
+  $isLoading: Observable<boolean> = this.todoFacade.isLoading$;
   
   ngOnInit (): void {
+    this.todoFacade.message$.subscribe(message => {
+      if (message.message) {
+        this.popUpBar.open(`${message.type}: ${message.message}`, 'Close', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        }).afterDismissed().subscribe(() => {
+          this.todoFacade.clearMessage();
+        });
+      }
+    })
   };
 
   onEdit($event: any, todoItem: TodoItem) {

@@ -12,7 +12,7 @@ export const loadTodosSuccess = createAction(
 
 export const loadTodosFailure = createAction(
   '[Todo] Load Todos Failure',
-  props<{ error: any }>()
+  props<any>()
 );
 
 export const createTodo = createAction(
@@ -26,7 +26,7 @@ export const createTodoSuccess = createAction(
 
 export const createTodoFailure = createAction(
   '[Todo] Create Todo Failure',
-  props<{ error: any }>()
+  props<any>()
 );
 
 export const editTodo = createAction(
@@ -40,5 +40,10 @@ export const editTodoSuccess = createAction(
 
 export const editTodoFailure = createAction(
   '[Todo] Edit Todo Failure',
-  props<{ error: any }>()
+  props<any>()
 );
+
+export const clearMessage = createAction(
+  '[Todo] Clear message'
+);
+

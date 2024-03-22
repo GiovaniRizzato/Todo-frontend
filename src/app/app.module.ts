@@ -6,6 +6,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodoStoreModule } from './+todo/todo-store.module';
 
@@ -20,6 +22,8 @@ import { TodoStoreModule } from './+todo/todo-store.module';
     MatCheckboxModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
     TodoStoreModule,
     BrowserAnimationsModule
   ],

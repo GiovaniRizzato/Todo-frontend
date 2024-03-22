@@ -12,3 +12,8 @@ export const selectLoadingState = createSelector (
     todoState,
     (state: TodoState) => state.loading
 );
+
+export const selectMessage = createSelector (
+    todoState,
+    (state: TodoState) => state.message
+);

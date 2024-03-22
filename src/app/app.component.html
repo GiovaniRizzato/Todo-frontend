@@ -3,26 +3,31 @@
     {{ title }}
     </h1>
     <div class="wapper-card">
-        <div *ngFor="let textItem of $todoList | async">
-            <mat-card class="textItem">
-                <mat-card-content>
-                    <text-item
-                        [label]="textItem.label"
-                        [isChecked]="textItem.isDone"
-                        (labelChanged)="onEdit($event, textItem)"
-                        (toggleChange)="onEdit($event, textItem)"
-                    >
-                    </text-item>
-                    <button
-                        mat-icon-button
-                        color="warn"
-                        [attr.aria-label]="textItem.label + ' removal'"
-                        (click)="onRemove(textItem.id)"
-                    >
-                        <mat-icon>remove</mat-icon>
-                    </button>
-                </mat-card-content>
-            </mat-card>
-        </div>
+        <ng-container *ngIf="$isLoading | async">
+            <mat-spinner></mat-spinner>
+        </ng-container>
+        <ng-container *ngIf="!($isLoading | async)">
+            <div *ngFor="let textItem of $todoList | async">
+                <mat-card class="textItem">
+                    <mat-card-content>
+                        <text-item
+                            [label]="textItem.label"
+                            [isChecked]="textItem.isDone"
+                            (labelChanged)="onEdit($event, textItem)"
+                            (toggleChange)="onEdit($event, textItem)"
+                        >
+                        </text-item>
+                        <button
+                            mat-icon-button
+                            color="warn"
+                            [attr.aria-label]="textItem.label + ' removal'"
+                            (click)="onRemove(textItem.id)"
+                        >
+                            <mat-icon>remove</mat-icon>
+                        </button>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </ng-container>
     </div>
 </div>
