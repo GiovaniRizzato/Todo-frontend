@@ -4,16 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
-import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
-import { TextItemComponent } from './text-item/text-item.component';
-import { TextListComponent } from './text-list.component';
+import { TextItemComponent } from './text-item.component';
 
 @NgModule({
   declarations: [
     TextItemComponent,
-    TextListComponent
   ],
   imports: [
     BrowserModule,
@@ -21,12 +18,11 @@ import { TextListComponent } from './text-list.component';
     MatCheckboxModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule,
     MatInputModule,
     MatFormFieldModule,
   ],
   exports: [
-    TextListComponent
+    TextItemComponent
   ]
 })
-export class TextListModule { }
+export class TextItemModule { }

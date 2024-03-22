@@ -38,3 +38,8 @@
     justify-content: space-between;
     padding: 32px 64px 32px 64px;
 }
+
+.textItem {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}

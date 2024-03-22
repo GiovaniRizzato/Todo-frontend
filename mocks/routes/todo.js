@@ -57,6 +57,13 @@ module.exports = [
                 options: {
                     status: 202,
                 },
+            },
+            {
+                id: "error",
+                type: "status", 
+                options: {
+                    status: 500,
+                },
             }
         ]
     }

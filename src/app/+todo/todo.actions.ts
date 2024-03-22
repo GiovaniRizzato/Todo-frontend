@@ -7,7 +7,7 @@ export const loadTodos = createAction(
 
 export const loadTodosSuccess = createAction(
   '[Todo] Load Todos Success',
-  props<{ data: Array<TodoItem> }>()
+  props<{ todoList: Array<TodoItem> }>()
 );
 
 export const loadTodosFailure = createAction(
@@ -30,7 +30,8 @@ export const createTodoFailure = createAction(
 );
 
 export const editTodo = createAction(
-  '[Todo] Edit Todo'
+  '[Todo] Edit Todo',
+  props<TodoItem>()
 );
 
 export const editTodoSuccess = createAction(

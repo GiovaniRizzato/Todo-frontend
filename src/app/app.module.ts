@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button'
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodoStoreModule } from './+todo/todo-store.module';
 
@@ -14,6 +15,7 @@ import { TodoStoreModule } from './+todo/todo-store.module';
   ],
   imports: [
     ComomModule,
+    MatCardModule,
     MatIconModule,
     MatCheckboxModule,
     MatButtonModule,

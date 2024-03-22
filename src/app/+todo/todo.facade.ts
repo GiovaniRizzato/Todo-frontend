@@ -20,7 +20,7 @@ export class TodoFacade {
     this.store.dispatch(TodoActions.loadTodos());
   }
 
-  createTodo (todoItem: TodoItem) {
-    this.store.dispatch(TodoActions.createTodo(todoItem));
+  editTodo (todoItem: TodoItem) {
+    this.store.dispatch(TodoActions.editTodo(todoItem));
   }
 }

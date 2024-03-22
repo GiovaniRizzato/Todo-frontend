@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { map, Observable, of, withLatestFrom } from 'rxjs';
-import * as TodoActions from './+todo/todo.actions';
-import { CheckboxData } from 'src/commom/text-list/text-list.component';
+import { Observable } from 'rxjs';
 import { TodoFacade } from './+todo/todo.facade';
-import { TodoState } from './+todo/todo.reducer';
+import { TodoItem } from './+todo/todo.models';
 
 @Component({
   selector: 'app-root',
@@ -16,18 +13,19 @@ export class AppComponent implements OnInit {
   constructor (private readonly todoFacade: TodoFacade) {}
   
   title = 'Todo-frontend';
-  $todoList: Observable<CheckboxData[]> = of([]);
+  $todoList: Observable<TodoItem[]> = this.todoFacade.todoList$;
   
   ngOnInit (): void {
-    this.$todoList = this.todoFacade.todoList$
-    .pipe(
-      map(todoItemList => 
-        todoItemList.map(todoItem => ({
-          id: todoItem.id,
-          label: todoItem.label,
-          isChecked: todoItem.isDone
-        } as CheckboxData))
-      ),
-    );    
   };
+
+  onEdit($event: any, todoItem: TodoItem) {
+    const modified = JSON.parse(JSON.stringify(todoItem)) as TodoItem;
+    modified.isDone = typeof $event.checked !== 'undefined' ? $event.checked : modified.isDone;
+    modified.label = typeof $event.newLabel !== 'undefined' ? $event.newLabel : modified.label;    
+    this.todoFacade.editTodo(modified);
+  };
+
+  onRemove(id: string) {
+    console.log(id)
+  }
 }

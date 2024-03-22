@@ -12,15 +12,17 @@ export interface Message {
 }
 
 export interface TodoState {
-  todoList: Array<TodoItem>,
+  todoList: TodoItem[],
   loading: boolean;
-  message: Message
+  message: Message;
+  oldState: TodoState
 }
 
 export const initialState: TodoState = {
   todoList: [],
   loading: true,
-  message: {} as Message
+  message: {} as Message,
+  oldState: {} as TodoState
 };
 
 export const reducer = createReducer (
@@ -30,14 +32,25 @@ export const reducer = createReducer (
       loading: true,
     })
   ),
-  on(TodoActions.loadTodosSuccess, (state, data: { data: Array<TodoItem> }) => ({
+  on(TodoActions.loadTodosSuccess, (state, props: { todoList: Array<TodoItem> }) => ({
     ...state,
-    todoList: data.data,
+    todoList: props.todoList,
     loading: false,
   })),
   on(TodoActions.loadTodosFailure, (state) => ({
     ...state,
     loading: false,
+  })),
+  on(TodoActions.editTodo, (state, newState: TodoItem) => ({
+      ...state,
+      todoList: state.todoList.map(todoItem => todoItem.id === newState.id ? newState : todoItem),
+      oldState: state
+  })),
+  on(TodoActions.editTodoSuccess, (state) => ({
+    ...state,
+  })),
+  on(TodoActions.editTodoFailure, (state) => ({
+    ...state.oldState,
   })),
 );
 

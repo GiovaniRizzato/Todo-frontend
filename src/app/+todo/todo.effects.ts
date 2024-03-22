@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, catchError, concatMap, mergeMap } from 'rxjs/operators';
+import { map, catchError, concatMap, mergeMap, tap } from 'rxjs/operators';
 import { Todo, TodoService } from './todo.service';
 import * as TodoAction from './todo.actions';
 import { TodoItem } from './todo.models';
@@ -13,11 +13,19 @@ export class TodoEffects {
     ofType(TodoAction.loadTodos),
     concatMap(() => this.todoService.getAllTodos()
       .pipe(
-        map(todoList => TodoAction.loadTodosSuccess({data: todoList.map(todo => TodoEffects.todoFromDataToModel(todo))})),
+        map(todoList => TodoAction.loadTodosSuccess({todoList: todoList.map(todo => TodoEffects.todoFromDataToModel(todo))})),
         catchError(error => of(TodoAction.loadTodosFailure(error)))
-      ))
-    )
-  );
+      )),
+  ));
+
+  editTodos$ = createEffect(() => this.actions$.pipe(
+    ofType(TodoAction.editTodo),
+    concatMap(modifiedTodo => this.todoService.editTodo(modifiedTodo.id, TodoEffects.todoFromModelToData(modifiedTodo))
+      .pipe(
+        map(() => TodoAction.editTodoSuccess()),
+        catchError(error => of(TodoAction.editTodoFailure(error)))
+      )),
+  ));
 
   constructor(
     private readonly actions$: Actions,
@@ -30,5 +38,13 @@ export class TodoEffects {
       label: todo.textLabel,
       isDone: todo.isChecked
     } as TodoItem
+  }
+
+  private static todoFromModelToData(todo: TodoItem): Todo {
+    return {
+      id: todo.id,
+      textLabel: todo.label,
+      isChecked: todo.isDone
+    } as Todo
   }
 }
