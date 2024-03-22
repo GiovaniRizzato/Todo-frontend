@@ -44,7 +44,10 @@ export const reducer = createReducer (
   on(TodoActions.editTodo, (state, newState: TodoItem) => ({
       ...state,
       todoList: state.todoList.map(todoItem => todoItem.id === newState.id ? newState : todoItem),
-      oldState: state
+      oldState: {
+        ...state,
+        oldState: {} as TodoState
+      } as TodoState,
   })),
   on(TodoActions.editTodoSuccess, (state) => ({
     ...state,
