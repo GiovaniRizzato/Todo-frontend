@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     private readonly popUpBar: MatSnackBar
   ) {}
   
-  title = 'Todo-frontend';
+  title = 'Todo Frontend';
   $todoList: Observable<TodoItem[]> = this.todoFacade.todoList$;
   $isLoading: Observable<boolean> = this.todoFacade.isLoading$;
   
@@ -34,10 +34,11 @@ export class AppComponent implements OnInit {
   };
 
   onEdit($event: any, todoItem: TodoItem) {
-    const modified = JSON.parse(JSON.stringify(todoItem)) as TodoItem;
-    modified.isDone = typeof $event.checked !== 'undefined' ? $event.checked : modified.isDone;
-    modified.label = typeof $event.newLabel !== 'undefined' ? $event.newLabel : modified.label;    
-    this.todoFacade.editTodo(modified);
+    this.todoFacade.editTodo({
+      id: todoItem.id,
+      isDone: typeof $event.checked !== 'undefined' ? $event.checked : todoItem.isDone,
+      label: typeof $event.newLabel !== 'undefined' ? $event.newLabel : todoItem.label
+    } as TodoItem);
   };
 
   onRemove(id: string) {

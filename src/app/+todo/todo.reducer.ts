@@ -1,16 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as TodoActions from './todo.actions';
-import { TodoItem } from './todo.models';
-
-export enum MessageType {
-  SUCCESS = 'SUCCESS',
-  ERROR = 'ERROR'
-}
-
-export interface Message {
-  message: string;
-  type: MessageType;
-}
+import { Message, MessageType, TodoItem } from './todo.models';
 
 export interface TodoState {
   todoList: TodoItem[],

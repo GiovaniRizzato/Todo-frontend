@@ -3,8 +3,8 @@ import { select, Store } from "@ngrx/store";
 import * as TodoSelector from './todo.selectors';
 import * as TodoActions from './todo.actions';
 import { Observable } from "rxjs";
-import { TodoItem } from "./todo.models";
-import { Message, TodoState } from "./todo.reducer";
+import { Message, TodoItem } from "./todo.models";
+import { TodoState } from "./todo.reducer";
 
 @Injectable()
 export class TodoFacade {
