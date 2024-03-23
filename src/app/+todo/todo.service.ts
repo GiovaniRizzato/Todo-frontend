@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 
 export interface Todo {
-  id?: String;
-  textLabel: String;
-  isChecked: Boolean
+  id?: string;
+  textLabel: string;
+  isChecked: boolean
 };
 
 @Injectable()
@@ -14,9 +14,6 @@ export class TodoService {
 
   getAllTodos (): Observable<Array<Todo>> {
     return this.http.get<Array<Todo>> ('/api/todo');
-  }
-  getTodoById (id: string): Observable<Todo> {
-    return this.http.get<Todo> (`/api/todo/${id}`);
   }
   createTodo (newTodo: Todo): Observable<void> {
     return this.http.post<void> (`/api/todo`, newTodo);
