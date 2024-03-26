@@ -1,7 +1,7 @@
 import { render, RenderResult } from '@testing-library/angular'
 import userEvent from '@testing-library/user-event'
-import { TextListModule } from '../text-list.module';
 import { TextItemComponent } from './text-item.component';
+import { TextItemModule } from './text-item.module';
 
 describe ('TextItemComponent', () => {
   let component: RenderResult<TextItemComponent, TextItemComponent>;
@@ -18,7 +18,7 @@ describe ('TextItemComponent', () => {
 
     component = await render (TextItemComponent, {
       imports: [
-        TextListModule
+        TextItemModule
       ],
       componentProperties: {
         label: 'Test Label',
