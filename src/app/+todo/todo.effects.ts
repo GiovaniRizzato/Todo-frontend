@@ -12,7 +12,7 @@ export class TodoEffects {
   loadTodos$ = createEffect(() => ({
     debounce = 300,
     scheduler = asyncScheduler
-  }) => this.actions$.pipe(
+  } = {}) => this.actions$.pipe(
     ofType(TodoAction.loadTodos),
     debounceTime(debounce, scheduler),
     concatMap(() => this.todoService.getAllTodos()
@@ -25,20 +25,20 @@ export class TodoEffects {
   editTodo$ = createEffect(() => ({
     debounce = 300,
     scheduler = asyncScheduler
-  }) => this.actions$.pipe(
+  } = {}) => this.actions$.pipe(
     ofType(TodoAction.editTodo),
     debounceTime(debounce, scheduler),
     concatMap(modifiedTodo => this.todoService.editTodo(modifiedTodo.id, TodoEffects.todoFromModelToData(modifiedTodo))
       .pipe(
         map(() => TodoAction.todoManipulationSuccess()),
-        catchError(error => of(TodoAction.todoManipulationFailure(error)))
+        catchError(error => of(TodoAction.todoManipulationFailure({ response: error })))
       )),
   ));
 
   createTodo$ = createEffect(() => ({
     debounce = 300,
     scheduler = asyncScheduler
-  }) => this.actions$.pipe(
+  } = {}) => this.actions$.pipe(
     ofType(TodoAction.createTodo),
     debounceTime(debounce, scheduler),
     concatMap(newTodoLabel => this.todoService.createTodo({
@@ -46,20 +46,20 @@ export class TodoEffects {
       isChecked: false
     }).pipe(
         map(() => TodoAction.todoManipulationSuccess()),
-        catchError(error => of(TodoAction.todoManipulationFailure(error)))
+        catchError(error => of(TodoAction.todoManipulationFailure({ response: error })))
       )),
   ));
 
   removeTodo$ = createEffect(() => ({
     debounce = 300,
     scheduler = asyncScheduler
-  }) => this.actions$.pipe(
+  } = {}) => this.actions$.pipe(
     ofType(TodoAction.removeTodo),
     debounceTime(debounce, scheduler),
     concatMap(removedTodoId => this.todoService.removeTodo(removedTodoId.id)
     .pipe(
         map(() => TodoAction.todoManipulationSuccess()),
-        catchError(error => of(TodoAction.todoManipulationFailure(error)))
+        catchError(error => of(TodoAction.todoManipulationFailure({ response: error })))
       )),
   ));
 

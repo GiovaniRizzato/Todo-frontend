@@ -147,7 +147,7 @@ describe('TodoEffects', () => {
           debounce: 20,
           scheduler: testScheduler
         })).toBe('19ms --e', {
-          e: { ...error, type: '[Todo] Todo Manipulation Failure'},
+          e: { type: '[Todo] Todo Manipulation Failure', response: error },
         });
       });
     });
