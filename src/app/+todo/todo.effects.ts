@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { map, catchError, concatMap } from 'rxjs/operators';
+import { asyncScheduler, of } from 'rxjs';
+import { map, catchError, concatMap, debounceTime } from 'rxjs/operators';
 import { Todo, TodoService } from './todo.service';
 import * as TodoAction from './todo.actions';
 import { TodoItem } from './todo.models';
@@ -9,8 +9,12 @@ import { TodoItem } from './todo.models';
 @Injectable()
 export class TodoEffects {
 
-  loadTodos$ = createEffect(() => this.actions$.pipe(
+  loadTodos$ = createEffect(() => ({
+    debounce = 300,
+    scheduler = asyncScheduler
+  }) => this.actions$.pipe(
     ofType(TodoAction.loadTodos),
+    debounceTime(debounce, scheduler),
     concatMap(() => this.todoService.getAllTodos()
       .pipe(
         map(todoList => TodoAction.loadTodosSuccess({todoList: todoList.map(todo => TodoEffects.todoFromDataToModel(todo))})),
@@ -18,8 +22,12 @@ export class TodoEffects {
       )),
   ));
 
-  editTodo$ = createEffect(() => this.actions$.pipe(
+  editTodo$ = createEffect(() => ({
+    debounce = 300,
+    scheduler = asyncScheduler
+  }) => this.actions$.pipe(
     ofType(TodoAction.editTodo),
+    debounceTime(debounce, scheduler),
     concatMap(modifiedTodo => this.todoService.editTodo(modifiedTodo.id, TodoEffects.todoFromModelToData(modifiedTodo))
       .pipe(
         map(() => TodoAction.todoManipulationSuccess()),
@@ -27,8 +35,12 @@ export class TodoEffects {
       )),
   ));
 
-  createTodo$ = createEffect(() => this.actions$.pipe(
+  createTodo$ = createEffect(() => ({
+    debounce = 300,
+    scheduler = asyncScheduler
+  }) => this.actions$.pipe(
     ofType(TodoAction.createTodo),
+    debounceTime(debounce, scheduler),
     concatMap(newTodoLabel => this.todoService.createTodo({
       textLabel: newTodoLabel.label,
       isChecked: false
@@ -38,8 +50,12 @@ export class TodoEffects {
       )),
   ));
 
-  removeTodo$ = createEffect(() => this.actions$.pipe(
+  removeTodo$ = createEffect(() => ({
+    debounce = 300,
+    scheduler = asyncScheduler
+  }) => this.actions$.pipe(
     ofType(TodoAction.removeTodo),
+    debounceTime(debounce, scheduler),
     concatMap(removedTodoId => this.todoService.removeTodo(removedTodoId.id)
     .pipe(
         map(() => TodoAction.todoManipulationSuccess()),
