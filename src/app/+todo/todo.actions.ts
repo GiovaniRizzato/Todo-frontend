@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 import { TodoItem } from './todo.models';
 
@@ -12,7 +13,7 @@ export const loadTodosSuccess = createAction(
 
 export const loadTodosFailure = createAction(
   '[Todo] Load Todos Failure',
-  props<any>()
+  props<{ response: HttpErrorResponse }>()
 );
 
 export const editTodo = createAction(
@@ -36,7 +37,7 @@ export const todoManipulationSuccess = createAction(
 
 export const todoManipulationFailure = createAction(
   '[Todo] Todo Manipulation Failure',
-  props<any>()
+  props<{ response: HttpErrorResponse }>()
 );
 
 export const clearMessage = createAction(

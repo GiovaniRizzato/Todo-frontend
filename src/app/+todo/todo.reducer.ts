@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { createReducer, on } from '@ngrx/store';
 import * as TodoActions from './todo.actions';
 import { Message, MessageType, TodoItem } from './todo.models';
@@ -11,7 +12,7 @@ export interface TodoState {
 
 export const initialState: TodoState = {
   todoList: [],
-  loading: true,
+  loading: false,
   message: {} as Message,
   oldState: {} as TodoState
 };
@@ -28,10 +29,10 @@ export const reducer = createReducer (
     todoList: props.todoList,
     loading: false,
   })),
-  on(TodoActions.loadTodosFailure, (state, error: any) => ({
+  on(TodoActions.loadTodosFailure, (state, error: { response: HttpErrorResponse }) => ({
     ...state,
     message: {
-      message: error.message,
+      message: error.response.message,
       type: MessageType.ERROR
     }
   })),
@@ -58,10 +59,10 @@ export const reducer = createReducer (
     ...state,
     oldState: {} as TodoState //Clear the hitory once it's done
   })),
-  on(TodoActions.todoManipulationFailure, (state, error: any) => ({
+  on(TodoActions.todoManipulationFailure, (state, error: { response: HttpErrorResponse }) => ({
     ...state.oldState,
     message: {
-      message: error.message,
+      message: error.response.message,
       type: MessageType.ERROR
     }
   })),
