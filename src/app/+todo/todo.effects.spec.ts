@@ -61,14 +61,22 @@ describe('TodoEffects', () => {
 
         const getTodoServiceSpy = jest.spyOn(mockTodoService, 'getAllTodos');
         getTodoServiceSpy.mockReturnValue(
-          cold('s|', { s: [] })
-        );
+          cold('s|', { s: [{
+            id: "id1",
+            textLabel: "label1",
+            isChecked: false
+          }]
+        }));
 
         expectObservable(effects.loadTodos$({
           debounce: 20,
           scheduler: testScheduler
         })).toBe('19ms --a', {
-          a: { type: '[Todo] Load Todos Success', todoList: [] },
+          a: { type: '[Todo] Load Todos Success', todoList: [{
+            id: "id1",
+            label: "label1",
+            isDone: false
+          }]},
         });
       });
     });
