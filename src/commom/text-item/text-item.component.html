@@ -2,21 +2,24 @@
     <ng-container
         *ngIf="!isLabelBeenEdited"
     >
-        <mat-checkbox
-            color="primary"
-            [checked]="isChecked"
-            (change)="toggleChangeEvent($event)"
-        >
-            {{ label }}
-        </mat-checkbox>
-        <button
-            mat-icon-button
-            color="primary"
-            [attr.aria-label]="'Edit label for ' + label"
-            (click)="enableEditing()"
-        >
-            <mat-icon>edit</mat-icon>
-        </button>
+        <div class="checkbox-wrapper">
+            <mat-checkbox
+                color="primary"
+                [checked]="isChecked"
+                (change)="toggleChangeEvent($event)"
+            >
+                <ng-content></ng-content>
+            </mat-checkbox>
+            <button
+                class="edit-icon"
+                mat-icon-button
+                color="primary"
+                [attr.aria-label]="'Edit label for ' + label"
+                (click)="enableEditing()"
+            >
+                <mat-icon>edit</mat-icon>
+                </button>
+        </div>
     </ng-container>
     <ng-container
         *ngIf="isLabelBeenEdited"
