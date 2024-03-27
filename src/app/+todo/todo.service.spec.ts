@@ -1,6 +1,7 @@
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { environment } from './../../environments/environment';
 import { Todo, TodoService } from "./todo.service";
 
 describe('TodoService', () => {
@@ -24,7 +25,7 @@ describe('TodoService', () => {
   it('Should be able to get all list of todos', () => {
     service.getAllTodos ().subscribe ();
 
-    const request = httpController.expectOne ('/api/todo');
+    const request = httpController.expectOne (`${environment.apiUrl}/api/todo`);
     expect(request.request.method).toEqual ('GET');
   });
 
@@ -34,7 +35,7 @@ describe('TodoService', () => {
       isChecked: true
     } as Todo).subscribe ();
 
-    const request = httpController.expectOne ('/api/todo');
+    const request = httpController.expectOne (`${environment.apiUrl}/api/todo`);
     expect(request.request.method).toEqual ('POST');
     expect(request.request.body).toEqual ({
       textLabel: "new todo item",
@@ -48,7 +49,7 @@ describe('TodoService', () => {
       isChecked: false
     }).subscribe ();
 
-    const request = httpController.expectOne ('/api/todo/2');
+    const request = httpController.expectOne (`${environment.apiUrl}/api/todo/2`);
     expect(request.request.method).toEqual ('PUT');
     expect(request.request.body).toEqual ({
       textLabel: "edited todo item",
@@ -59,7 +60,7 @@ describe('TodoService', () => {
   it('Should be able to edit a Todo', () => {
     service.removeTodo('2').subscribe ();
 
-    const request = httpController.expectOne ('/api/todo/2');
+    const request = httpController.expectOne (`${environment.apiUrl}/api/todo/2`);
     expect(request.request.method).toEqual ('DELETE');
   });
 });

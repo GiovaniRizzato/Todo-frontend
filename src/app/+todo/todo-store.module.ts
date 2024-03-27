@@ -7,13 +7,14 @@ import { TodoEffects } from './todo.effects';
 import { TodoService } from './todo.service';
 import * as TodoReducer from './todo.reducer';
 import { TodoFacade } from './todo.facade';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forRoot({todo: TodoReducer.reducer}),
     EffectsModule.forRoot([TodoEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [
     TodoFacade,
