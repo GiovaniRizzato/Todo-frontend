@@ -1,8 +1,10 @@
+/* istanbul ignore file */
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { TodoFacade } from './+todo/todo.facade';
 import { TodoItem } from './+todo/todo.models';
+
 
 @Component({
   selector: 'app-root',

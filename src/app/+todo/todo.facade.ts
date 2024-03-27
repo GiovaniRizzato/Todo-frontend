@@ -9,7 +9,7 @@ import { TodoState } from "./todo.reducer";
 @Injectable()
 export class TodoFacade {
   get todoList$(): Observable<TodoItem[]> {
-    return this.store.pipe(select(TodoSelector.selectAllTodoList))
+    return this.store.select(TodoSelector.selectAllTodoList)
   }
 
   get isLoading$(): Observable<boolean> {
