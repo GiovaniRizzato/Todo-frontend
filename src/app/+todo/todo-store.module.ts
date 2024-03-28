@@ -7,7 +7,7 @@ import { TodoEffects } from './todo.effects';
 import { TodoService } from './todo.service';
 import * as TodoReducer from './todo.reducer';
 import { TodoFacade } from './todo.facade';
-import { environment } from 'src/environments/environment';
+import { environment } from './../../environments/environment';
 
 @NgModule({
   imports: [
