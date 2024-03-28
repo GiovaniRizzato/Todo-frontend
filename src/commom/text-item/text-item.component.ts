@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./text-item.component.css']
 })
 export class TextItemComponent {
-  @Input() label!: string;
+  @Input() ariaLabel?: string;
   @Input() isChecked? = false;
 
   @Output() toggleChange = new EventEmitter<{checked: string, source: TextItemComponent}>();
@@ -29,8 +29,8 @@ export class TextItemComponent {
   };
 
   confirmEditing() {
-    this.label = this.form.newLabel;
-    this.labelChanged.emit ({newLabel: this.label, source: this});
+    this.ariaLabel = this.form.newLabel;
+    this.labelChanged.emit ({newLabel: this.ariaLabel, source: this});
     this.disableEditing ();
   };
 

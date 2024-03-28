@@ -10,7 +10,7 @@
             <div *ngFor="let textItem of $todoList | async">
                 <div class="item-wrapper">
                     <text-item
-                        [label]="textItem.label"
+                        [ariaLabel]="textItem.label"
                         [isChecked]="textItem.isDone"
                         (labelChanged)="onEdit($event, textItem)"
                         (toggleChange)="onEdit($event, textItem)"

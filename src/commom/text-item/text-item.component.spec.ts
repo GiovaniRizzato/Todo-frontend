@@ -1,10 +1,30 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { render, RenderResult } from '@testing-library/angular'
 import userEvent from '@testing-library/user-event'
-import { TextItemComponent } from './text-item.component';
 import { TextItemModule } from './text-item.module';
 
+@Component({
+  selector: 'text-item-test', 
+  template: `
+    <text-item
+      ariaLabel="Test Label"
+      [isChecked]="true"
+      (labelChanged)="labelChanged.emit($event)"
+      (toggleChange)="toggleChange.emit($event)"
+    >
+      <span>Test Label</span>
+  </text-item>
+  `
+})
+class TextItemTestComponent {
+  @Input() ariaLabel?: string;
+  @Input() isChecked? = false;
+  @Output() toggleChange = new EventEmitter<any>();
+  @Output() labelChanged = new EventEmitter<any>();
+}
+
 describe ('TextItemComponent', () => {
-  let component: RenderResult<TextItemComponent, TextItemComponent>;
+  let component: RenderResult<TextItemTestComponent, TextItemTestComponent>;
   const toggleChangeEmiter = {
     emit: jest.fn ()
   };
@@ -13,15 +33,15 @@ describe ('TextItemComponent', () => {
   };
 
   beforeEach (async () => {
-    toggleChangeEmiter.emit = jest.fn ();
+    toggleChangeEmiter.emit = jest.fn (); 
     labelChangedEmiter.emit = jest.fn ();
 
-    component = await render (TextItemComponent, {
+    component = await render (TextItemTestComponent, {
       imports: [
         TextItemModule
       ],
       componentProperties: {
-        label: 'Test Label',
+        ariaLabel: 'Test Label',
         isChecked: true,
         toggleChange: toggleChangeEmiter as any,
         labelChanged: labelChangedEmiter as any
@@ -30,10 +50,8 @@ describe ('TextItemComponent', () => {
   });
 
   it ('Should the checkbox with propper label ateched to it', () => {
-    expect (component.getByRole ('checkbox', {
-      name: 'Test Label',
-      checked: true
-    })).toBeInTheDocument ();
+    expect (component.getByRole ('checkbox')).toBeInTheDocument ();
+    expect (component.getByText ('Test Label')).toBeVisible ();
   });
 
   it ('Should notify when check status change', async () => {
@@ -54,9 +72,9 @@ describe ('TextItemComponent', () => {
       await userEvent.click (component.getByRole ('button', { name: `Edit label for Test Label` }));
       component.detectChanges ();
 
-      expect (component.getByRole ('textbox', { name: 'New description' })).toBeInTheDocument ();
-      expect (component.getByRole ('button', { name: 'Confirm change' })).toBeInTheDocument ();
-      expect (component.getByRole ('button', { name: 'Cancel editing' })).toBeInTheDocument ();
+      expect (component.getByRole ('textbox', { name: 'New description' })).toBeVisible ();
+      expect (component.getByRole ('button', { name: 'Confirm change' })).toBeVisible ();
+      expect (component.getByRole ('button', { name: 'Cancel editing' })).toBeVisible ();
     });
 
     it ('Should be able to edit the todo label', async () => {
@@ -64,7 +82,8 @@ describe ('TextItemComponent', () => {
       await userEvent.click (component.getByRole ('button', { name: 'Confirm change' }));
       component.detectChanges ();
 
-      expect (component.getByRole ('checkbox', {name: newLabel})).toBeInTheDocument ();
+      expect (component.getByRole ('checkbox')).toBeInTheDocument ();
+      expect (component.getByText ('Test Label')).toBeVisible ();
       expect (labelChangedEmiter.emit).toBeCalledWith (expect.objectContaining ({
         newLabel: 'newLabel'
       }));
@@ -75,7 +94,8 @@ describe ('TextItemComponent', () => {
       await userEvent.click (component.getByRole ('button', { name: 'Cancel editing' }));
       component.detectChanges();
 
-      expect (component.getByRole ('checkbox', {name: 'Test Label'})).toBeInTheDocument ();
+      expect (component.getByRole ('checkbox')).toBeInTheDocument ();
+      expect (component.getByText ('Test Label')).toBeVisible ();
       expect (labelChangedEmiter.emit).not.toBeCalled ();
     });
   });

@@ -5,6 +5,7 @@
         <div class="checkbox-wrapper">
             <mat-checkbox
                 color="primary"
+                [ariaLabel]="ariaLabel"
                 [checked]="isChecked"
                 (change)="toggleChangeEvent($event)"
             >
@@ -14,7 +15,7 @@
                 class="edit-icon"
                 mat-icon-button
                 color="primary"
-                [attr.aria-label]="'Edit label for ' + label"
+                [attr.aria-label]="ariaLabel ? 'Edit label for ' + ariaLabel : 'Edit label'"
                 (click)="enableEditing()"
             >
                 <mat-icon>edit</mat-icon>
