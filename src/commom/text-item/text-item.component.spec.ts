@@ -7,7 +7,6 @@ import { TextItemModule } from './text-item.module';
   selector: 'text-item-test', 
   template: `
     <text-item
-      ariaLabel="Test Label"
       [isChecked]="true"
       (labelChanged)="labelChanged.emit($event)"
       (toggleChange)="toggleChange.emit($event)"
@@ -17,7 +16,6 @@ import { TextItemModule } from './text-item.module';
   `
 })
 class TextItemTestComponent {
-  @Input() ariaLabel?: string;
   @Input() isChecked? = false;
   @Output() toggleChange = new EventEmitter<any>();
   @Output() labelChanged = new EventEmitter<any>();
@@ -41,7 +39,6 @@ describe ('TextItemComponent', () => {
         TextItemModule
       ],
       componentProperties: {
-        ariaLabel: 'Test Label',
         isChecked: true,
         toggleChange: toggleChangeEmiter as any,
         labelChanged: labelChangedEmiter as any
@@ -62,14 +59,14 @@ describe ('TextItemComponent', () => {
   });
 
   it ('Should have the edit button avalible', () => {
-    expect (component.getByRole ('button', { name: `Edit label for Test Label` })).toBeVisible ();
+    expect (component.getByRole ('button', { name: 'Edit label' })).toBeVisible ();
   });
 
   describe ('When the user clicks on the edit button', () => {
     const newLabel = 'newLabel';
 
     beforeEach (async () => {        
-      await userEvent.click (component.getByRole ('button', { name: `Edit label for Test Label` }));
+      await userEvent.click (component.getByRole ('button', { name: 'Edit label' }));
       component.detectChanges ();
 
       expect (component.getByRole ('textbox', { name: 'New description' })).toBeVisible ();
