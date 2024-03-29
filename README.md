@@ -51,4 +51,4 @@ The real idea here was to put my skills to the test in making something with all
     npm run cypress:open
     ```
 
-The results can be found at [cypress\videos\todo-list.cy.ts.mp4](cypress\videos\todo-list.cy.ts.mp4)
+The results can be found at [cypress/videos/todo-list.cy.ts.mp4](cypress/videos/todo-list.cy.ts.mp4)
