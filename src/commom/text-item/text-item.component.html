@@ -15,11 +15,11 @@
                 class="edit-icon"
                 mat-icon-button
                 color="primary"
-                [attr.aria-label]="'Edit label'"
+                [attr.aria-labelledby]="labelId + ' ' + labelId + '-edit-icon'"
                 (click)="enableEditing()"
             >
-                <mat-icon>edit</mat-icon>
-                </button>
+                <mat-icon [id]="labelId + '-edit-icon'">edit</mat-icon>
+            </button>
         </div>
     </ng-container>
     <ng-container
