@@ -1,8 +1,8 @@
 # OverEngineered Todo list
 
-Welcome to the OverEngineered Todo list project repository! This project of a todo list with all my frotend techologies that made sense, and some that don't just for fun of it! :smiley:
+Welcome to the OverEngineered Todo list project repository! This project of a to-do list with all my frontend technologies that made sense, and some that don't just for fun of it! :smiley:
 
-The real idea here was to put my skills to the test in making something with all techologies with my disposal that would fit in a one enviroment, on another words, in one standalone Git project
+The real idea here was to put my skills to the test in making something with all technologies with my disposal that would fit in a one environment, on other words, in one standalone project.
 
 ## Technologies Used :hammer_and_wrench:
 
@@ -42,7 +42,7 @@ The real idea here was to put my skills to the test in making something with all
 
 3. Access the page at http://localhost:4200/
 
-## End-to-end testing
+## End-to-end testing :heavy_check_mark:
 
 1. Follow the steps in [Using the development environment](#using-the-development-environment-dart)
 
