@@ -10,11 +10,12 @@
             <div *ngFor="let textItem of $todoList | async">
                 <div class="item-wrapper">
                     <text-item
+                        [labelId]="'todo-item-' + textItem.id"
                         [isChecked]="textItem.isDone"
                         (labelChanged)="onEdit($event, textItem)"
                         (toggleChange)="onEdit($event, textItem)"
                     >
-                        <span [class.todoDone]="textItem.isDone">{{ textItem.label }}</span>
+                        <span [id]="'todo-item-' + textItem.id" [class.todoDone]="textItem.isDone">{{ textItem.label }}</span>
                     </text-item>
                     <button
                         mat-icon-button

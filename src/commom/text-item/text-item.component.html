@@ -4,6 +4,7 @@
     >
         <div class="checkbox-wrapper">
             <mat-checkbox
+                [aria-labelledby]="labelId ? labelId : null"
                 color="primary"
                 [checked]="isChecked"
                 (change)="toggleChangeEvent($event)"

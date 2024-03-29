@@ -6,6 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./text-item.component.css']
 })
 export class TextItemComponent {
+  @Input() labelId?: string;
   @Input() isChecked? = false;
 
   @Output() toggleChange = new EventEmitter<{checked: string, source: TextItemComponent}>();

@@ -18,7 +18,7 @@ export class TodoEffects {
     concatMap(() => this.todoService.getAllTodos()
       .pipe(
         map(todoList => TodoAction.loadTodosSuccess({todoList: todoList.map(todo => TodoEffects.todoFromDataToModel(todo))})),
-        catchError(error => of(TodoAction.loadTodosFailure(error)))
+        catchError(error => of(TodoAction.loadTodosFailure({ response: error })))
       )),
   ));
 
