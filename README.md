@@ -1,6 +1,6 @@
 # OverEngineered Todo list
 
-Welcome to the OverEngineered Todo list project repository! This project of a to-do list with all my frontend technologies that made sense, and some that don't just for fun of it! :smiley:
+Welcome to the OverEngineered Todo list project repository! This is project of a to-do list with all my frontend technologies that made sense, and some that don't just for fun of it! :smiley:
 
 The real idea here was to put my skills to the test in making something with all technologies with my disposal that would fit in a one environment, on other words, in one standalone project.
 
